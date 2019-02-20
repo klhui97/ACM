@@ -7,7 +7,13 @@ ACM tips / cheatsheet
 =====================
 
 .. toctree::
-   :maxdepth: 2
-   :caption: Contents:
+    :hidden:
+    :glob:
 
-   graph
+    topics/io
+    topics/stl
+    topics/graph
+
+.. include:: topics/io.rst
+.. include:: topics/stl.rst
+.. include:: topics/graph.rst
