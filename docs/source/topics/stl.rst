@@ -15,7 +15,7 @@ Fill an array
 Sorting
 ^^^^^^^^^^^^
 
-Simple Example
+Simple example
 
 .. code-block:: cpp
 
@@ -26,4 +26,17 @@ Simple Example
 	int a[10] = {0};
 	sort(a, a+10, compare);
 
+
+Map
+^^^
+
+string map example
+
+.. code-block:: cpp
+
+	map<string, int> m;
+	m["key"] = 23;
+	cout << "Key: " << m.find("key")->first << endl;
+	cout << "Value: " << m.find("key")->second << endl;
+	cout << "isEmpty: " << m.find("key")->first.empty() << endl;
 

@@ -16,6 +16,15 @@ split char by space.
         pch = strtok(NULL, " ,.-");
     }
 
+Convert a string back to input stream (similar as cin)
+
+.. code-block:: cpp
+
+    int input;
+    stringstream ss("23 45 63 47 23");
+    while(ss >> input) {
+        cout << input << endl;
+    }
 
 
 This example is used to count the number words in line separated by space.

@@ -12,8 +12,12 @@ ACM tips / cheatsheet
 
     topics/io
     topics/stl
+    topics/helper function.rst
     topics/graph
+    topics/dp
 
 .. include:: topics/io.rst
 .. include:: topics/stl.rst
+.. include:: topics/helper function.rst
 .. include:: topics/graph.rst
+.. include:: topics/dp.rst
