@@ -100,4 +100,63 @@ Floyd- Warshall algorithm
         }
     }
 
+Dijkstra’s algorithm
+++++++++++++++++++++
 
+.. code-block:: cpp
+
+    #define INF 0x3f3f3f3f
+    typedef pair<int, int> iPair; 
+    class Graph 
+    { 
+        int V;
+        list< pair<int, int> > *adj; 
+    
+    public: 
+        Graph(int V);
+        void addEdge(int u, int v, int w);
+        int shortestPath(int s); 
+    }; 
+
+    Graph::Graph(int V) 
+    { 
+        this->V = V; 
+        adj = new list<iPair> [V]; 
+    } 
+    
+    void Graph::addEdge(int from, int to, int w) 
+    { 
+        adj[from].push_back(make_pair(to, w));
+        printf("%d --> %d weight: %d\n", from, to, w);
+        adj[to].push_back(make_pair(from, w));
+        printf("%d --> %d weight: %d\n", to, from, w);
+    } 
+
+    int Graph::shortestPath(int src)
+    {
+        priority_queue< iPair, vector <iPair> , greater<iPair> > pq;
+        vector<int> dist(V, INF);
+        pq.push(make_pair(0, src));
+        dist[src] = 0;
+
+        while (!pq.empty())
+        {
+            int u = pq.top().second;
+            pq.pop();
+
+            list< pair<int, int> >::iterator i;
+            for (i = adj[u].begin(); i != adj[u].end(); ++i)
+            {
+                int v = (*i).first;
+                int weight = (*i).second;
+                
+                if (dist[v] > dist[u] + weight)
+                {
+                    dist[v] = dist[u] + weight;
+                    pq.push(make_pair(dist[v], v));
+                }
+            }
+        }
+
+        return dist[1];
+    }
