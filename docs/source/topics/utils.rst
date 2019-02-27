@@ -1,5 +1,5 @@
-Helper function list
-====================
+Utility Function
+================
 
 is_number
 ^^^^^^^^^^^
