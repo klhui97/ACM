@@ -14,10 +14,12 @@ ACM tips / cheatsheet
     topics/stl
     topics/graph
     topics/dp
+    topics/string.rst
     topics/utils.rst
 
 .. include:: topics/io.rst
 .. include:: topics/stl.rst
 .. include:: topics/graph.rst
 .. include:: topics/dp.rst
+.. include:: topics/string.rst
 .. include:: topics/utils.rst
