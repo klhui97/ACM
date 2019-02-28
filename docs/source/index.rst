@@ -17,6 +17,12 @@ ACM tips / cheatsheet
     topics/string.rst
     topics/utils.rst
 
+.. footer::
+   ###Page###
+
+.. contents:: Table of contents
+    :depth: 2
+
 .. include:: topics/io.rst
 .. include:: topics/stl.rst
 .. include:: topics/graph.rst

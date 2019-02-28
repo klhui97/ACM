@@ -5,7 +5,7 @@ Pattern Searching
 ^^^^^^^^^^^^^^^^^
 
 Knuth Morris Pratt algorithm
-----------------------------
+++++++++++++++++++++++++++++
 
 https://www.geeksforgeeks.org/kmp-algorithm-for-pattern-searching/
 
