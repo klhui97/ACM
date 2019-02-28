@@ -15,16 +15,6 @@ is_number
 expression evalation
 ^^^^^^^^^^^^^^^^^^^^
 
-Example:
-
-.. code-block:: cpp
-
-    cout << evaluate("10 + 2 * 6") << "\n";
-    cout << evaluate("100 * 2 + 12") << "\n";
-    cout << evaluate("100 * ( 2 + 12 )") << "\n"; 
-    cout << evaluate("100 * ( 2 + 12 ) / 14")  << endl;
-
-
 Code:
 
 .. code-block:: cpp
@@ -131,16 +121,22 @@ Code:
         return values.top(); 
     }
 
+Example:
+
+.. code-block:: cpp
+
+    cout << evaluate("10 + 2 * 6") << "\n";
+    cout << evaluate("100 * 2 + 12") << "\n";
+    cout << evaluate("100 * ( 2 + 12 )") << "\n"; 
+    cout << evaluate("100 * ( 2 + 12 ) / 14")  << endl;
+
+
+
 postfix to infix
 ^^^^^^^^^^^^^^^^
 
 postfix: abcd^e-fgh*+^*+i-
 infix: ((a+(b*(((c^d)-e)^(f+(g*h)))))-i)
-
-.. code-block:: cpp
-
-    string exp = "abcd^e-fgh*+^*+i-"; 
-    cout << getInfix(exp) << endl;
 
 Code:
 
@@ -176,18 +172,19 @@ Code:
         return s.top(); 
     }
 
+Example:
+
+.. code-block:: cpp
+
+    string exp = "abcd^e-fgh*+^*+i-"; 
+    cout << getInfix(exp) << endl;
+
+
 infix to postfix
 ^^^^^^^^^^^^^^^^
 
 infix: a+b*(c^d-e)^(f+g*h)-i
 postfix: abcd^e-fgh*+^*+i-
-
-Example:
-
-.. code-block:: cpp
-
-    string exp = "a+b*(c^d-e)^(f+g*h)-i";
-    infixToPostfix(exp);
 
 Code:
 
@@ -254,6 +251,14 @@ Code:
         cout << ns << endl;
     }
 
+Example:
+
+.. code-block:: cpp
+
+    string exp = "a+b*(c^d-e)^(f+g*h)-i";
+    infixToPostfix(exp);
+
+
 Prime
 ^^^^^
 
@@ -261,12 +266,6 @@ Sieve Of Eratosthenes
 =====================
 
 print all primes less than N
-
-example:
-
-.. code-block:: cpp
-
-    SieveOfEratosthenes(100);
 
 Code:
 
@@ -291,3 +290,9 @@ Code:
         if (isprime[p])
             cout << p << " ";
     }
+
+Example:
+
+.. code-block:: cpp
+
+    SieveOfEratosthenes(100);
