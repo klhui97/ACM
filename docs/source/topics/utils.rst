@@ -2,7 +2,7 @@ Utility Function
 ================
 
 is_number
-^^^^^^^^^^^
+^^^^^^^^^
 
 .. code-block:: cpp
 
@@ -10,6 +10,125 @@ is_number
         std::string::const_iterator it = s.begin();
         while (it != s.end() && std::isdigit(*it)) ++it;
         return !s.empty() && it == s.end();
+    }
+
+expression evalation
+^^^^^^^^^^^^^^^^^^^^
+
+Example:
+
+.. code-block:: cpp
+
+    cout << evaluate("10 + 2 * 6") << "\n";
+    cout << evaluate("100 * 2 + 12") << "\n";
+    cout << evaluate("100 * ( 2 + 12 )") << "\n"; 
+    cout << evaluate("100 * ( 2 + 12 ) / 14")  << endl;
+
+
+Code:
+
+.. code-block:: cpp
+
+    int precedence(char op){ 
+        if(op == '+'||op == '-') 
+        return 1; 
+        if(op == '*'||op == '/') 
+        return 2; 
+        return 0; 
+    } 
+
+    int applyOp(int a, int b, char op){ 
+        switch(op){ 
+            case '+': return a + b; 
+            case '-': return a - b; 
+            case '*': return a * b; 
+            case '/': return a / b; 
+        }
+        return a + b; // to hide warning
+    }
+    
+    // Function that returns value of 
+    // expression after evaluation. 
+    int evaluate(string tokens){ 
+        int i; 
+        
+        // stack to store integer values. 
+        stack <int> values; 
+        
+        // stack to store operators. 
+        stack <char> ops; 
+        
+        for(i = 0; i < tokens.length(); i++){ 
+            
+            if(tokens[i] == ' ') 
+                continue;
+            else if(tokens[i] == '('){ 
+                ops.push(tokens[i]); 
+            }
+            else if(isdigit(tokens[i])){ 
+                int val = 0; 
+                
+                while(i < tokens.length() &&  
+                            isdigit(tokens[i])) 
+                { 
+                    val = (val*10) + (tokens[i]-'0'); 
+                    i++; 
+                } 
+                
+                values.push(val); 
+            }
+            else if(tokens[i] == ')') 
+            { 
+                while(!ops.empty() && ops.top() != '(') 
+                { 
+                    int val2 = values.top(); 
+                    values.pop(); 
+                    
+                    int val1 = values.top(); 
+                    values.pop(); 
+                    
+                    char op = ops.top(); 
+                    ops.pop(); 
+                    
+                    values.push(applyOp(val1, val2, op)); 
+                } 
+                
+                // pop opening brace. 
+                ops.pop(); 
+            }
+            else
+            {
+                while(!ops.empty() && precedence(ops.top()) 
+                                    >= precedence(tokens[i])){ 
+                    int val2 = values.top(); 
+                    values.pop(); 
+                    
+                    int val1 = values.top(); 
+                    values.pop(); 
+                    
+                    char op = ops.top(); 
+                    ops.pop(); 
+                    
+                    values.push(applyOp(val1, val2, op)); 
+                }
+                ops.push(tokens[i]); 
+            } 
+        }
+
+        while(!ops.empty()){ 
+            int val2 = values.top(); 
+            values.pop(); 
+                    
+            int val1 = values.top(); 
+            values.pop(); 
+                    
+            char op = ops.top(); 
+            ops.pop(); 
+                    
+            values.push(applyOp(val1, val2, op)); 
+        }
+        
+        return values.top(); 
     }
 
 postfix to infix
@@ -133,4 +252,42 @@ Code:
         }
 
         cout << ns << endl;
+    }
+
+Prime
+^^^^^
+
+Sieve Of Eratosthenes
+=====================
+
+print all primes less than N
+
+example:
+
+.. code-block:: cpp
+
+    SieveOfEratosthenes(100);
+
+Code:
+
+.. code-block:: cpp
+
+    void SieveOfEratosthenes(int n)
+    {
+        bool isprime[n+1];
+        memset(isprime, true, sizeof(isprime));
+
+        for (int p=2; p*p<=n; p++)
+        {
+            if (isprime[p] == true)
+            {
+                for (int i=p*p; i<=n; i += p)
+                    isprime[i] = false;
+            }
+        }
+
+        // Print all isprime numbers
+        for (int p=2; p<=n; p++)
+        if (isprime[p])
+            cout << p << " ";
     }
