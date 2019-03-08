@@ -259,11 +259,8 @@ Example:
     infixToPostfix(exp);
 
 
-Prime
-^^^^^
-
-Sieve Of Eratosthenes
-=====================
+Prime - Sieve Of Eratosthenes
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 print all primes less than N
 

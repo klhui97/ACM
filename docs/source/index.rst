@@ -15,6 +15,7 @@ ACM tips / cheatsheet
     topics/graph
     topics/dp
     topics/string.rst
+    topics/math.rst
     topics/utils.rst
 
 .. footer::
@@ -28,4 +29,5 @@ ACM tips / cheatsheet
 .. include:: topics/graph.rst
 .. include:: topics/dp.rst
 .. include:: topics/string.rst
+.. include:: topics/math.rst
 .. include:: topics/utils.rst
