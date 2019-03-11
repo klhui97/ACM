@@ -40,3 +40,16 @@ string map example
 	cout << "Value: " << m.find("key")->second << endl;
 	cout << "isEmpty: " << m.find("key")->first.empty() << endl;
 
+Set
+^^^
+
+.. code-block:: cpp
+
+	set<int> s;
+	s.insert(300);
+	s.insert(333);
+	s.insert(233);
+	s.insert(433);
+	for(set<int>::iterator it = s.begin(); it != s.end(); it++) {
+		cout << *it << "\n";
+	}
