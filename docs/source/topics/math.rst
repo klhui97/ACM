@@ -6,7 +6,7 @@ Math Library
 
 .. code-block:: cpp
 
-#include <math.h>
+    #include <math.h>
 
     double floor(double x); // deduce x to next smallest integer
     double ceil(double x); // raise x to next largest integer

@@ -258,6 +258,24 @@ Example:
     string exp = "a+b*(c^d-e)^(f+g*h)-i";
     infixToPostfix(exp);
 
+Prime - One time
+^^^^^^^^^^^^^^^^
+
+.. code-block:: cpp
+
+    bool is_prime(int n)
+    {
+        int i, j;
+        if (n<4)
+            return true;
+        if ((n % 2) == 0)
+            return false;
+        j = (int)sqrt((double)n);
+        for (i = 3; i <= j; i += 2)
+            if (n%i == 0)
+                return 0;
+        return true;
+    }
 
 Prime - Sieve Of Eratosthenes
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
