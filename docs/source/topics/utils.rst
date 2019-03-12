@@ -262,7 +262,7 @@ Example:
 Prime - Sieve Of Eratosthenes
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-print all primes less than N
+print all primes less than or equal to N
 
 Code:
 
@@ -284,8 +284,9 @@ Code:
 
         // Print all isprime numbers
         for (int p=2; p<=n; p++)
-        if (isprime[p])
-            cout << p << " ";
+            if (isprime[p])
+                cout << p << " ";
+        cout << endl;
     }
 
 Example:
