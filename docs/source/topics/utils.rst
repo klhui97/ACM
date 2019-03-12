@@ -258,8 +258,11 @@ Example:
     string exp = "a+b*(c^d-e)^(f+g*h)-i";
     infixToPostfix(exp);
 
+Prime
+-----
+
 Prime - One time
-----------------
+^^^^^^^^^^^^^^^^^
 
 .. code-block:: cpp
 
@@ -277,8 +280,40 @@ Prime - One time
         return true;
     }
 
+Prime - Bitwise Sieve
+^^^^^^^^^^^^^^^^^^^^^
+
+print all primes less than or equal to maxn
+
+Code:
+
+.. code-block:: cpp
+
+    int composite[(maxn>>6)+1];
+
+    bool isPrime(int x){
+        return x==2 || (x>2 && (x&1) && !(composite[x>>6]&(1<<((x>>1)&63))));
+    }
+
+    void bitwiseSieve() {
+        for(int i=3;i<=int(sqrt(maxn));i+=2)
+        {
+            if(!(composite[i>>6]&(1<<((i>>1)&63)))){
+                for(int j=i*i;j<=maxn;j+=i+i)
+                    composite[j>>6]|=(1<<((j>>1)&63));
+            }
+        }
+
+        for (int i = 2; i <= maxn; i++) {
+            if (isPrime(i))
+                cout << i << " ";
+        }
+        cout << endl;
+    }
+
+
 Prime - Sieve Of Eratosthenes
------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 print all primes less than or equal to N
 
