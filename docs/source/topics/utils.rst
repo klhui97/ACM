@@ -2,7 +2,7 @@ Utility Function
 ================
 
 is_number
-^^^^^^^^^
+---------
 
 .. code-block:: cpp
 
@@ -13,7 +13,7 @@ is_number
     }
 
 expression evalation
-^^^^^^^^^^^^^^^^^^^^
+--------------------
 
 Code:
 
@@ -133,7 +133,7 @@ Example:
 
 
 postfix to infix
-^^^^^^^^^^^^^^^^
+----------------
 
 postfix: abcd^e-fgh*+^*+i-
 infix: ((a+(b*(((c^d)-e)^(f+(g*h)))))-i)
@@ -181,7 +181,7 @@ Example:
 
 
 infix to postfix
-^^^^^^^^^^^^^^^^
+----------------
 
 infix: a+b*(c^d-e)^(f+g*h)-i
 postfix: abcd^e-fgh*+^*+i-
@@ -259,7 +259,7 @@ Example:
     infixToPostfix(exp);
 
 Prime - One time
-^^^^^^^^^^^^^^^^
+----------------
 
 .. code-block:: cpp
 
@@ -278,7 +278,7 @@ Prime - One time
     }
 
 Prime - Sieve Of Eratosthenes
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+-----------------------------
 
 print all primes less than or equal to N
 

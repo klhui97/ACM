@@ -2,7 +2,7 @@ STL Library Examples
 ====================
 
 Initizalize
-^^^^^^^^^^^
+-----------
 
 Fill an array
 
@@ -13,7 +13,7 @@ Fill an array
 
 
 Sorting
-^^^^^^^^
+--------
 
 Simple example
 
@@ -28,7 +28,7 @@ Simple example
 
 
 Map
-^^^
+---
 
 string map example
 
@@ -41,7 +41,7 @@ string map example
 	cout << "isEmpty: " << m.find("key")->first.empty() << endl;
 
 Set
-^^^
+---
 
 .. code-block:: cpp
 

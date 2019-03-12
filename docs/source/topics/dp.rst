@@ -2,7 +2,7 @@ Dynamic Programming
 ===================
 
 0/1 Knapsack problem
-^^^^^^^^^^^^^^^^^^^^
+--------------------
 
 * Gvien set of items with weight and value
 * Maximize the value in C capacity

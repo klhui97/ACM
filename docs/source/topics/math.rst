@@ -2,7 +2,7 @@ Math
 ====
 
 Math Library
-^^^^^^^^^^^^
+------------
 
 .. code-block:: cpp
 
@@ -20,7 +20,7 @@ Math Library
 
 
 Extended Euclidean algorithms(to find gcd)
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+------------------------------------------
 
 .. code-block:: cpp
 

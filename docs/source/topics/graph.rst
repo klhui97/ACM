@@ -2,7 +2,7 @@ Graph
 =====
 
 Graph Traversal
-^^^^^^^^^^^^^^^
+---------------
 
 Breadth First Search (BFS)
 ++++++++++++++++++++++++++
@@ -160,7 +160,7 @@ Example:
     g.BFS(2);
 
 Shorest Path
-^^^^^^^^^^^^
+------------
 
 Floyd- Warshall algorithm
 +++++++++++++++++++++++++

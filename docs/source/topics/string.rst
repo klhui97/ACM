@@ -2,7 +2,7 @@ String
 ======
 
 Pattern Searching
-^^^^^^^^^^^^^^^^^
+-----------------
 
 Knuth Morris Pratt algorithm
 ++++++++++++++++++++++++++++
@@ -89,7 +89,7 @@ Example:
     }
 
 Longest Common Subsequence
-^^^^^^^^^^^^^^^^^^^^^^^^^^
+--------------------------
 
 Examples:
 LCS for input Sequences “ABCDGH” and “AEDFHR” is “ADH” of length 3.

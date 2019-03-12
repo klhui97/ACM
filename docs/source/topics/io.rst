@@ -2,7 +2,7 @@ Input / Output
 ==============
 
 read line, spliting
-^^^^^^^^^^^^^^^^^^^
+-------------------
 
 split char by space.
 
@@ -45,7 +45,7 @@ This example is used to count the number words in line separated by space.
     cout << "The numbers of elements: " << n << endl;
 
 precision
-^^^^^^^^^
+---------
 
 .. code-block:: cpp
 
