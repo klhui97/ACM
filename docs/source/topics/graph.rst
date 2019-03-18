@@ -270,3 +270,120 @@ Example:
 
     g.shortestPath(0);
 
+Minimum Spanning Tree
+---------------------
+
+Kruskal’s algorithm
++++++++++++++++++++
+
+Code:
+
+.. code-block:: cpp
+
+    typedef  pair<int, int> iPair;
+    int V, E; 
+    vector< pair<int, iPair> > edges; 
+
+    void addEdge(int u, int v, int w) 
+    { 
+        edges.push_back(make_pair(w, make_pair(u, v))); 
+    }
+    
+    struct DisjointSets 
+    { 
+        int *parent, *rnk; 
+        int n; 
+    
+        // Constructor. 
+        DisjointSets(int n) 
+        { 
+            // Allocate memory 
+            this->n = n; 
+            parent = new int[n+1]; 
+            rnk = new int[n+1]; 
+
+            for (int i = 0; i <= n; i++) 
+            { 
+                rnk[i] = 0; 
+                parent[i] = i; 
+            } 
+        } 
+
+        int find(int u) 
+        {
+            if (u != parent[u]) 
+                parent[u] = find(parent[u]); 
+            return parent[u]; 
+        } 
+
+        void merge(int x, int y) 
+        { 
+            x = find(x), y = find(y); 
+            if (rnk[x] > rnk[y]) 
+                parent[y] = x; 
+            else
+                parent[x] = y; 
+    
+            if (rnk[x] == rnk[y]) 
+                rnk[y]++; 
+        } 
+    }; 
+
+    int kruskalMST() 
+    { 
+        int mst_wt = 0;
+        int cnt = 0;
+        sort(edges.begin(), edges.end()); 
+        DisjointSets ds(V);
+
+        vector< pair<int, iPair> >::iterator it;
+        for (it=edges.begin(); it!=edges.end(); it++) 
+        { 
+            int u = it->second.first; 
+            int v = it->second.second; 
+    
+            int set_u = ds.find(u); 
+            int set_v = ds.find(v); 
+
+            if (set_u != set_v) 
+            {
+                cout << u << " - " << v << " cost: " << it->first << "\n"; 
+                mst_wt += it->first; 
+                ds.merge(set_u, set_v);
+                cnt++;
+                if (cnt == V - 1)
+                    break;
+            }
+        } 
+        cout << "Weight of MST is " << mst_wt << "\n";
+        // Clear after finished
+        edges.clear();
+        if (cnt == V - 1)
+            return mst_wt;
+        else
+            return -1; // Cannot find mst
+    }
+
+Example:
+
+.. code-block:: cpp
+
+    V = 9;
+    E = 14;
+    addEdge(0, 1, 4); 
+    addEdge(0, 7, 8); 
+    addEdge(1, 2, 8); 
+    addEdge(1, 7, 11); 
+    addEdge(2, 3, 7); 
+    addEdge(2, 8, 2); 
+    addEdge(2, 5, 4); 
+    addEdge(3, 4, 9); 
+    addEdge(3, 5, 14); 
+    addEdge(4, 5, 10); 
+    addEdge(5, 6, 2); 
+    addEdge(6, 7, 1);
+    addEdge(6, 8, 6); 
+    addEdge(7, 8, 7);
+    cout << "Edges of MST are \n"; 
+    int mst_wt = kruskalMST();
+    cout << "\nMST: " << mst_wt << "\n";
