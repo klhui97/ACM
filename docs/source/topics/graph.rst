@@ -387,3 +387,78 @@ Example:
     cout << "Edges of MST are \n"; 
     int mst_wt = kruskalMST();
     cout << "\nMST: " << mst_wt << "\n";
+
+
+Prim’s Algorithm
+++++++++++++++++
+
+Code:
+
+.. code-block:: cpp
+
+    int V;
+
+    int minKey(int key[], bool mstSet[])  {
+        int min = INT_MAX, min_index; 
+        
+        for (int v = 0; v < V; v++) 
+            if (mstSet[v] == false && key[v] < min) 
+                min = key[v], min_index = v; 
+        
+        return min_index; 
+    }
+
+    int primMST(int graph[maxn][maxn])  {
+        int parent[V];
+        int key[V];
+        bool mstSet[V];
+
+        for (int i = 0; i < V; i++) 
+            key[i] = INT_MAX, mstSet[i] = false; 
+
+        key[0] = 0;      
+        parent[0] = -1;
+
+        for (int count = 0; count < V-1; count++) 
+        {
+            int u = minKey(key, mstSet);
+            mstSet[u] = true; 
+            for (int v = 0; v < V; v++)  
+                if (graph[u][v] && mstSet[v] == false && graph[u][v] < key[v]) 
+                parent[v] = u, key[v] = graph[u][v]; 
+        }
+
+        int w = 0;
+        printf("Edge \tWeight\n"); 
+        for (int i = 1; i < V; i++) {
+            if (graph[i][parent[i]] == INT_MAX)
+                return -1; // not a mst
+            w += graph[i][parent[i]];
+            printf("%d - %d \t%d \n", parent[i], i, graph[i][parent[i]]);
+        }
+        return w;
+    }
+
+Example:
+
+.. code-block:: cpp
+
+    int cost[maxn][maxn] = { 
+        { INT_MAX, 2, INT_MAX, 6, INT_MAX }, 
+        { 2, INT_MAX, 3, 8, 5 }, 
+        { INT_MAX, INT_MAX, INT_MAX, INT_MAX, INT_MAX }, 
+        { 6, 8, INT_MAX, INT_MAX, 9 }, 
+        { INT_MAX, 5, 7, 9, INT_MAX }, 
+    }; 
+
+    cout << primMST(cost) << "\n"; // -1 is returned (undefine case)
+
+    int cost2[maxn][maxn] = { 
+        { INT_MAX, 2, INT_MAX, 6, INT_MAX }, 
+        { 2, INT_MAX, 3, 8, 5 }, 
+        { INT_MAX, 3, INT_MAX, INT_MAX, 7 }, 
+        { 6, 8, INT_MAX, INT_MAX, 9 }, 
+        { INT_MAX, 5, 7, 9, INT_MAX }, 
+    }; 
+
+    cout << primMST(cost2) << "\n"; // 16 is returned
