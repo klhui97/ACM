@@ -450,3 +450,93 @@ Example:
     }; 
 
     cout << primMST(cost2) << "\n"; // 16 is returned
+
+Maxflow
+-------
+
+Edmonds-Karp Algorithm
+++++++++++++++++++++++
+
+Code:
+
+.. code-block:: cpp
+
+    #define maxn 101
+    #define maxw 5
+    #define INF 0x3f3f3f3f
+
+    typedef pair<int, int> ii;
+    typedef vector<int> vi;
+    typedef vector<ii> vii;
+
+    int res[maxn][maxn], maxflow, f, s, t;
+    vector<vi> adj;
+    vi p;
+
+    int n;
+
+    void augment(int v, int minEdge) {
+        if (v == s) {
+            f = minEdge;
+            return;
+        } else if (p[v] != -1) {
+            augment(p[v], min(minEdge, res[p[v]][v]));
+            res[p[v]][v] -= f;
+            res[v][p[v]] += f;
+        }
+    }
+
+    void EdmondKarps() {
+        maxflow = 0;
+        while (1) {
+            f = 0;
+            bitset<maxn> visited;
+            visited.set(s);
+            queue<int> q;
+            q.push(s);
+            p.assign(maxn, -1);
+            while (!q.empty()) {
+                int u = q.front();
+                q.pop();
+                if (u == t)
+                    break;
+                for (int i = 0; i < (int) adj[u].size(); i++) {
+                    int v = adj[u][i];
+                    if (res[u][v] > 0 && !visited.test(v)) {
+                        visited.set(v);
+                        q.push(v);
+                        p[v] = u;
+                    }
+                }
+            }
+            augment(t, INF);
+            if (f == 0)
+                break;
+            maxflow += f;
+        }
+    }
+
+    void addEdge(int v, int u, int w) {
+        res[v][u] = w;
+        adj[v].push_back(u);
+        // res[u][v] = w;
+        // adj[u].push_back(v);
+    }
+
+Example:
+
+.. code-block:: cpp
+
+    n = 5;
+    s = 1;
+    t = 4;
+    memset(res, 0, sizeof res);
+    adj.assign(n, vi());
+    addEdge(1, 2, 20);
+    addEdge(1, 3, 10);
+    addEdge(2, 3, 5);
+    addEdge(2, 4, 10);
+    addEdge(3, 4, 20);
+
+    EdmondKarps();
+    cout << maxflow << endl;

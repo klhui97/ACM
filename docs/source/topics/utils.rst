@@ -262,7 +262,7 @@ Prime
 -----
 
 Prime - One time
-^^^^^^^^^^^^^^^^^
+++++++++++++++++
 
 .. code-block:: cpp
 
@@ -281,7 +281,7 @@ Prime - One time
     }
 
 Prime - Bitwise Sieve
-^^^^^^^^^^^^^^^^^^^^^
++++++++++++++++++++++
 
 print all primes less than or equal to maxn
 
@@ -313,7 +313,7 @@ Code:
 
 
 Prime - Sieve Of Eratosthenes
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
++++++++++++++++++++++++++++++
 
 print all primes less than or equal to N
 
