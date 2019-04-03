@@ -457,26 +457,25 @@ Maxflow
 Edmonds-Karp Algorithm
 ++++++++++++++++++++++
 
+n = nodes, e = edges
+Time complexity: O(ne^2)
 Code:
 
 .. code-block:: cpp
 
-    #define maxn 101
-    #define maxw 5
-    #define INF 0x3f3f3f3f
-
-    typedef pair<int, int> ii;
+    typedef pair<int, int> pii;
     typedef vector<int> vi;
-    typedef vector<ii> vii;
-
-    int res[maxn][maxn], maxflow, f, s, t;
+    typedef vector<pii> vpii;
+    #define maxn 105
+    
+    int res[maxn][maxn], maxflow, f, ss, tt;
     vector<vi> adj;
     vi p;
 
     int n;
 
     void augment(int v, int minEdge) {
-        if (v == s) {
+        if (v == ss) {
             f = minEdge;
             return;
         } else if (p[v] != -1) {
@@ -491,14 +490,14 @@ Code:
         while (1) {
             f = 0;
             bitset<maxn> visited;
-            visited.set(s);
+            visited.set(ss);
             queue<int> q;
-            q.push(s);
+            q.push(ss);
             p.assign(maxn, -1);
             while (!q.empty()) {
                 int u = q.front();
                 q.pop();
-                if (u == t)
+                if (u == tt)
                     break;
                 for (int i = 0; i < (int) adj[u].size(); i++) {
                     int v = adj[u][i];
@@ -509,7 +508,7 @@ Code:
                     }
                 }
             }
-            augment(t, INF);
+            augment(tt, INF);
             if (f == 0)
                 break;
             maxflow += f;
@@ -517,10 +516,13 @@ Code:
     }
 
     void addEdge(int v, int u, int w) {
-        res[v][u] = w;
+        res[v][u] += w;
         adj[v].push_back(u);
-        // res[u][v] = w;
-        // adj[u].push_back(v);
+    }
+
+    void init(int n) {
+        memset(res, 0, sizeof res);
+        adj.assign(n, vi());
     }
 
 Example:
@@ -528,10 +530,9 @@ Example:
 .. code-block:: cpp
 
     n = 5;
-    s = 1;
-    t = 4;
-    memset(res, 0, sizeof res);
-    adj.assign(n, vi());
+    ss = 1;
+    tt = 4;
+    init(n);
     addEdge(1, 2, 20);
     addEdge(1, 3, 10);
     addEdge(2, 3, 5);
