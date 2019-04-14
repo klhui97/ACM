@@ -21,20 +21,24 @@ Basic
         void read() { scanf("%lf%lf", &x, &y); }
     };
 
-    int dblcmp(double x) {
-        return (x < -eps ? -1 : x > eps);
+    double dot(point_t p1, point_t p2) {
+        return p1.x * p2.x + p1.y * p2.y;
     }
 
-    double dist(point_t p1, point_t p2) {
-        return (p2 - p1).l();
+    int dblcmp(double x) {
+    return (x < -eps ? -1 : x > eps);
     }
 
     double cross(point_t p1, point_t p2) {
         return p1.x * p2.y - p2.x * p1.y;
     }
 
-    double dot(point_t p1, point_t p2) {
-        return p1.x * p2.x + p1.y * p2.y;
+    bool onSeg(point_t p, point_t a, point_t b) {
+        return dblcmp(cross(a - p, b - p)) == 0 && dblcmp(dot(a - p, b - p)) <= 0;
+    }
+
+    double dist(point_t p1, point_t p2) {
+        return (p2 - p1).l();
     }
 
     // 1 normal intersected, -1 denormal intersected, 0 not intersected
@@ -52,8 +56,33 @@ Basic
         return 0;
     }
 
+    // Important note: points must follow clockwise / anti-cloclwise order
+    bool insidePoly(point_t *p, int n, point_t t) {
+        p[0] = p[n];
+        for (int i = 0; i < n; ++i) if (onSeg(t, p[i], p[i + 1])) return true;
+        point_t r = point_t(2353456.663, 5326546.243); // random point
+        int cnt = 0;
+        for (int i = 0; i < n; ++i) {
+            if (testSS(t, r, p[i], p[i + 1]) != 0) ++cnt;
+        }
+        return cnt & 1;
+    }
+
+    // Important note: points must follow clockwise / anti-cloclwise order
+    double areaPoly(point_t *p, int n) {
+        double sum = 0;
+        p[n + 1] = p[1];
+        for (int i = 1; i <= n; i++) {
+            sum += cross(p[i], p[i + 1]);
+        }
+            return abs(sum / 2.0);
+    }
+
 Convex Hull
 -----------
+
+Graham scan
++++++++++++
 
 n points, points are saved from points[1] to points[n]
 return: top
