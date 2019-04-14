@@ -16,6 +16,7 @@ ACM tips / cheatsheet
     topics/dp
     topics/string.rst
     topics/math.rst
+    topics/geog.rst
     topics/utils.rst
 
 .. footer::
@@ -30,4 +31,5 @@ ACM tips / cheatsheet
 .. include:: topics/dp.rst
 .. include:: topics/string.rst
 .. include:: topics/math.rst
+.. include:: topics/geog.rst
 .. include:: topics/utils.rst
