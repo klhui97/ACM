@@ -264,6 +264,8 @@ Minimum Spanning Tree
 Kruskal’s algorithm
 +++++++++++++++++++
 
+Time complexity: E log E
+
 Code:
 
 .. code-block:: cpp
@@ -380,6 +382,8 @@ Example:
 Prim’s Algorithm
 ++++++++++++++++
 
+Time complexity: O(VlogV + ElogV) = O(ElogV)
+
 Code:
 
 .. code-block:: cpp
@@ -457,8 +461,7 @@ Maxflow
 Edmonds-Karp Algorithm
 ++++++++++++++++++++++
 
-n = nodes, e = edges
-Time complexity: O(ne^2)
+Time complexity: O(VE^2)
 Code:
 
 .. code-block:: cpp
