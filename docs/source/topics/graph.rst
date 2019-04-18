@@ -553,103 +553,93 @@ Code:
 
 .. code-block:: cpp
 
-    struct edge {
-        int a, b, f, c;
+    #define INTT long long
+    struct Edge {
+        int v;     // edge (u->v)
+        INTT c;  // edge cacity (w)
+        int nxt;  // the next edge connected by node u.
     };
-
-    int n;
-    vector <edge> e;
-    int pt[maxn]; // very important performance trick
-    vector <int> g[maxn];
-    ll flow = 0;
-    queue <int> q;
+    int edges;
+    Edge edge[maxw];
     int d[maxn];
-    int lim;
-    int s, t;
+    int f[maxw], h[maxw];
 
+    void addEdge(int u, int v, INTT c) {
+        edge[edges].nxt = h[u];
+        edge[edges].v = v;
+        edge[edges].c = c;
+        h[u] = edges;
+        edges++;
+        edge[edges].nxt = h[v];
+        edge[edges].v = u;
+        edge[edges].c = 0;
+        h[v] = edges;
+        edges++;
+    }
     void init() {
-        e.clear();
-        flow = 0;
-        for (int i = 0; i <= n; i++) {
-            g[i].clear();
-        }
+        edges = 0;
+        memset(h, -1, sizeof(h));
+        memset(f, 0, sizeof(f));
     }
 
-    void add_edge(int a, int b, int c) {                                                                           
-        edge ed;
-        ed.a = a; ed.b = b; ed.f = 0; ed.c = c;
-        g[a].push_back(e.size());
-        e.push_back(ed);
+    bool bfs(int S, int T) {
+        int u, v;
+        memset(d, -1, sizeof(d));
+        queue<int> Q;
+        while (!Q.empty())
+            Q.pop();
+        Q.push(S);
+        d[S] = 0;
+        while (!Q.empty()) {
+            u = Q.front();
+            Q.pop();
+            for (int e = h[u]; e != -1; e = edge[e].nxt) {
+                v = edge[e].v;
 
-        ed.a = b; ed.b = a; ed.f = c; ed.c = c;
-        g[b].push_back(e.size());
-        e.push_back(ed);
-    }
-
-    bool bfs() {
-        for (int i = s; i <= t; i++)
-            d[i] = INF;
-        d[s] = 0; 
-        q.push(s);
-        while (!q.empty() && d[t] == INF) {
-            int cur = q.front(); q.pop();
-            for (size_t i = 0; i < g[cur].size(); i++) {
-                int id = g[cur][i];
-                int to = e[id].b;
-
-                //printf("cur = %d id = %d a = %d b = %d f = %d c = %d\n", cur, id, e[id].a, e[id].b, e[id].f, e[id].c);
-
-                if (d[to] == INF && e[id].c - e[id].f >= lim) {
-                    d[to] = d[cur] + 1;
-                    q.push(to);
+                if ((d[v] == -1) && edge[e].c > f[e]) {
+                    d[v] = d[u] + 1;
+                    Q.push(v);
                 }
             }
         }
-        while (!q.empty()) 
-            q.pop();
-        return d[t] != INF;
+        return d[T] >= 0;
     }
 
-    bool dfs(int v, int flow) {
-        if (flow == 0) 
-            return false;
-        if (v == t) {
-            //cout << v << endl;
-            return true;
-        }
-        for (; pt[v] < g[v].size(); pt[v]++) {
-            int id = g[v][pt[v]];
-            int to = e[id].b;
-
-            //printf("v = %d id = %d a = %d b = %d f = %d c = %d\n", v, id, e[id].a, e[id].b, e[id].f, e[id].c);
-
-            if (d[to] == d[v] + 1 && e[id].c - e[id].f >= flow) {
-                int pushed = dfs(to, flow); 
-                if (pushed) {
-                    e[id].f += flow;
-                    e[id ^ 1].f -= flow;
-                    return true;
-                }               
+    INTT dinic(int u, int T, INTT sum) {
+        if (u == T) 
+            return sum;
+        int v, tp = sum;
+        for (int e = h[u]; e != -1 && sum; e = edge[e].nxt) {
+            v = edge[e].v;
+            if (d[v] == d[u] + 1 && edge[e].c>f[e]) {
+                ll toflow = dinic(v, T, min(sum, edge[e].c - f[e]));
+                f[e] += toflow;
+                f[e ^ 1] -= toflow;
+                sum -= toflow;
             }
         }
-        return false;
+        return tp - sum;
     }
 
-    void dinic() {
-        for (lim = (1 << 30); lim >= 1;) {
-            if (!bfs()) {
-                lim >>= 1;
-                continue;
+    INTT maxFlow(int s, int t) {
+        INTT ans = 0;
+        while (bfs(s, t))
+            ans += dinic(s, t, INF);
+        return ans;
+    }
+
+    // dfs, find vertexs that haven't flowout
+    int cnt;
+    int visited[maxn];
+    void dfs(int u) {
+        cnt++;
+        visited[u] = 1;
+        int v;
+        for (int e = h[u]; e != -1; e = edge[e].nxt) {
+            v = edge[e].v;
+            if (edge[e].c - f[e]>0 && !visited[v]) {
+                dfs(v);
             }
-
-            for (int i = s; i <= t; i++) 
-                pt[i] = 0;
-
-            while (dfs(s, lim)) { 
-                flow = flow + lim;
-            }
-
-            //cout << flow << endl;
         }
     }
 
@@ -658,17 +648,15 @@ Example:
 .. code-block:: cpp
 
     init();
-    n = 6;
-    s = 0, t = 5;
-    add_edge(0, 1, 16 ); 
-    add_edge(0, 2, 13 ); 
-    add_edge(1, 2, 10 ); 
-    add_edge(1, 3, 12 ); 
-    add_edge(2, 1, 4 ); 
-    add_edge(2, 4, 14); 
-    add_edge(3, 2, 9 ); 
-    add_edge(3, 5, 20 ); 
-    add_edge(4, 3, 7 ); 
-    add_edge(4, 5, 4); 
-    dinic();
-    cout << flow << endl;
+    int s = 0, t = 5;
+    addEdge(0, 1, 16 ); 
+    addEdge(0, 2, 13 ); 
+    addEdge(1, 2, 10 ); 
+    addEdge(1, 3, 12 ); 
+    addEdge(2, 1, 4 ); 
+    addEdge(2, 4, 14); 
+    addEdge(3, 2, 9 ); 
+    addEdge(3, 5, 20 ); 
+    addEdge(4, 3, 7 ); 
+    addEdge(4, 5, 4); 
+    cout << maxFlow(s, 5) << endl;
