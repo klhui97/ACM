@@ -177,18 +177,18 @@ Code:
 
 .. code-block:: cpp
 
-    #define INF 0x3f3f3f3f
     typedef pair<int, int> iPair; 
+
     class Graph 
     { 
-        int V;
+        int V; 
         list< pair<int, int> > *adj; 
     
     public: 
         Graph(int V);
         void addEdge(int u, int v, int w);
-        int shortestPath(int s); 
-    }; 
+        void shortestPath(int s); 
+    };
 
     Graph::Graph(int V) 
     { 
@@ -196,41 +196,56 @@ Code:
         adj = new list<iPair> [V]; 
     } 
     
-    void Graph::addEdge(int from, int to, int w) 
+    void Graph::addEdge(int u, int v, int w) 
     { 
-        adj[from].push_back(make_pair(to, w));
-        printf("%d --> %d weight: %d\n", from, to, w);
-        adj[to].push_back(make_pair(from, w));
-        printf("%d --> %d weight: %d\n", to, from, w);
-    } 
-
-    int Graph::shortestPath(int src)
+        adj[u].push_back(make_pair(v, w)); 
+        adj[v].push_back(make_pair(u, w)); 
+    }
+    void Graph::shortestPath(int src) 
     {
-        priority_queue< iPair, vector <iPair> , greater<iPair> > pq;
-        vector<int> dist(V, INF);
-        pq.push(make_pair(0, src));
-        dist[src] = 0;
+        priority_queue< iPair, vector <iPair> , greater<iPair> > pq; 
+        // Create a vector for distances and initialize all 
+        // distances as infinite (INF) 
+        int dist[V + 1];
+        memset(dist, INF, sizeof dist);
 
-        while (!pq.empty())
+        pq.push(make_pair(0, src)); 
+        dist[src] = 0; 
+
+        while (!pq.empty()) 
         {
-            int u = pq.top().second;
-            pq.pop();
-
-            list< pair<int, int> >::iterator i;
-            for (i = adj[u].begin(); i != adj[u].end(); ++i)
-            {
-                int v = (*i).first;
-                int weight = (*i).second;
-                
-                if (dist[v] > dist[u] + weight)
-                {
-                    dist[v] = dist[u] + weight;
-                    pq.push(make_pair(dist[v], v));
-                }
-            }
-        }
-
-        return dist[1];
+            // The first vertex in pair is the minimum distance 
+            // vertex, extract it from priority queue. 
+            // vertex label is stored in second of pair (it 
+            // has to be done this way to keep the vertices 
+            // sorted distance (distance must be first item 
+            // in pair) 
+            int u = pq.top().second; 
+            pq.pop(); 
+    
+            // 'i' is used to get all adjacent vertices of a vertex 
+            list< pair<int, int> >::iterator i; 
+            for (i = adj[u].begin(); i != adj[u].end(); ++i) 
+            { 
+                // Get vertex label and weight of current adjacent 
+                // of u. 
+                int v = (*i).first; 
+                int weight = (*i).second; 
+    
+                //  If there is shorted path to v through u. 
+                if (dist[v] > dist[u] + weight) 
+                { 
+                    // Updating distance of v 
+                    dist[v] = dist[u] + weight; 
+                    pq.push(make_pair(dist[v], v)); 
+                } 
+            } 
+        } 
+    
+        // Print shortest distances stored in dist[] 
+        printf("Vertex   Distance from Source\n"); 
+        for (int i = 0; i < V; ++i) 
+            printf("%d \t\t %d\n", i, dist[i]); 
     }
 
 Example:
@@ -257,6 +272,21 @@ Example:
     g.addEdge(7, 8, 7); 
 
     g.shortestPath(0);
+
+ans:
+
+.. code-block:: cpp
+
+    Vertex   Distance from Source
+    0                0
+    1                4
+    2                12
+    3                19
+    4                21
+    5                11
+    6                9
+    7                8
+    8                14
 
 Minimum Spanning Tree
 ---------------------
