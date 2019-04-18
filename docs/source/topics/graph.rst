@@ -177,75 +177,84 @@ Code:
 
 .. code-block:: cpp
 
-    typedef pair<int, int> iPair; 
+    typedef pair<int, int> iPair;
+    struct node {
+        int id;
+        int distance;
 
-    class Graph 
-    { 
-        int V; 
-        list< pair<int, int> > *adj; 
-    
-    public: 
+        node(int id, int distance) :id(id), distance(distance) {};
+
+        bool operator < (const node n2) const {
+            return distance > n2.distance;
+        }
+    };
+    class Graph
+    {
+        int V;
+        list< pair<int, int> > *adj;
+
+    public:
         Graph(int V);
         void addEdge(int u, int v, int w);
-        void shortestPath(int s); 
+        void shortestPath(int s);
     };
 
-    Graph::Graph(int V) 
-    { 
-        this->V = V; 
-        adj = new list<iPair> [V]; 
-    } 
-    
-    void Graph::addEdge(int u, int v, int w) 
-    { 
-        adj[u].push_back(make_pair(v, w)); 
-        adj[v].push_back(make_pair(u, w)); 
-    }
-    void Graph::shortestPath(int src) 
+    Graph::Graph(int V)
     {
-        priority_queue< iPair, vector <iPair> , greater<iPair> > pq; 
-        // Create a vector for distances and initialize all 
-        // distances as infinite (INF) 
+        this->V = V;
+        adj = new list<iPair> [V];
+    }
+
+    void Graph::addEdge(int u, int v, int w)
+    {
+        adj[u].push_back(make_pair(v, w));
+        adj[v].push_back(make_pair(u, w));
+    }
+    void Graph::shortestPath(int src)
+    {
+        priority_queue<node> pq;
+        // Create a vector for distances and initialize all
+        // distances as infinite (INF)
         int dist[V + 1];
         memset(dist, INF, sizeof dist);
 
-        pq.push(make_pair(0, src)); 
-        dist[src] = 0; 
+        pq.push(node(src, 0));
+        dist[src] = 0;
 
-        while (!pq.empty()) 
+        while (!pq.empty())
         {
-            // The first vertex in pair is the minimum distance 
-            // vertex, extract it from priority queue. 
-            // vertex label is stored in second of pair (it 
-            // has to be done this way to keep the vertices 
-            // sorted distance (distance must be first item 
-            // in pair) 
-            int u = pq.top().second; 
-            pq.pop(); 
-    
-            // 'i' is used to get all adjacent vertices of a vertex 
-            list< pair<int, int> >::iterator i; 
-            for (i = adj[u].begin(); i != adj[u].end(); ++i) 
-            { 
-                // Get vertex label and weight of current adjacent 
-                // of u. 
-                int v = (*i).first; 
-                int weight = (*i).second; 
-    
-                //  If there is shorted path to v through u. 
-                if (dist[v] > dist[u] + weight) 
-                { 
-                    // Updating distance of v 
-                    dist[v] = dist[u] + weight; 
-                    pq.push(make_pair(dist[v], v)); 
-                } 
-            } 
-        } 
-    
-        // Print shortest distances stored in dist[] 
-        printf("Vertex   Distance from Source\n"); 
-        for (int i = 0; i < V; ++i) 
-            printf("%d \t\t %d\n", i, dist[i]); 
+            // The first vertex in pair is the minimum distance
+            // vertex, extract it from priority queue.
+            // vertex label is stored in second of pair (it
+            // has to be done this way to keep the vertices
+            // sorted distance (distance must be first item
+            // in pair)
+            int u = pq.top().id;
+            pq.pop();
+
+            // 'i' is used to get all adjacent vertices of a vertex
+            list< pair<int, int> >::iterator i;
+            for (i = adj[u].begin(); i != adj[u].end(); ++i)
+            {
+                // Get vertex label and weight of current adjacent
+                // of u.
+                int v = (*i).first;
+                int weight = (*i).second;
+
+                //  If there is shorted path to v through u.
+                if (dist[v] > dist[u] + weight)
+                {
+                    // Updating distance of v
+                    dist[v] = dist[u] + weight;
+                    pq.push(node(v, dist[v]));
+                }
+            }
+        }
+
+        // Print shortest distances stored in dist[]
+        printf("Vertex   Distance from Source\n");
+        for (int i = 0; i < V; ++i)
+            printf("%d \t\t %d\n", i, dist[i]);
     }
 
 Example:
