@@ -179,10 +179,10 @@ Code:
 
     typedef pair<int, int> iPair;
     struct node {
-        int id;
+        int v;
         int distance;
 
-        node(int id, int distance) :id(id), distance(distance) {};
+        node(int v, int distance) :v(v), distance(distance) {};
 
         bool operator < (const node n2) const {
             return distance > n2.distance;
@@ -229,7 +229,7 @@ Code:
             // has to be done this way to keep the vertices
             // sorted distance (distance must be first item
             // in pair)
-            int u = pq.top().id;
+            int u = pq.top().v;
             pq.pop();
 
             // 'i' is used to get all adjacent vertices of a vertex
