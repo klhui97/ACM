@@ -4,8 +4,8 @@ Graph
 Graph Traversal
 ---------------
 
-Breadth First Search (BFS)
-++++++++++++++++++++++++++
+DFS & BFS
++++++++++
 
 .. code-block:: cpp
 
@@ -30,9 +30,9 @@ Breadth First Search (BFS)
         memset(visited, false, sizeof visited);
 
         list<node> queue;
+        queue.push_back(node(s, 0));
 
         visited[s] = true;
-        queue.push_back(node(s, 0));
 
         list<int>::iterator i;
 
@@ -43,12 +43,11 @@ Breadth First Search (BFS)
             queue.pop_front();
 
             cout << v << " ";
-            
+
             for (i = adj[v].begin(); i != adj[v].end(); ++i)
             {
                 int u = *i;
-                if (!visited[u])
-                {
+                if (!visited[u]) {
                     visited[u] = true;
                     queue.push_back(node(u, d + 1));
                 }
@@ -56,21 +55,55 @@ Breadth First Search (BFS)
         }
         cout << "\n";
     }
+    void dfs(int s) 
+    { 
+        bool visited[V];
+        memset(visited, false, sizeof visited);
+
+        stack<node> stack; 
+        stack.push(node(s, 0)); 
+
+        visited[s] = true;
+
+        list<int>::iterator i;
+
+        while (!stack.empty()) 
+        {
+            int v = stack.top().v; 
+            int d = stack.top().distance;
+            stack.pop();
+
+            cout << v << " "; 
+            
+            for (i = adj[v].begin(); i != adj[v].end(); ++i) {
+                int u = *i;
+                    
+                if (!visited[u]) {
+                    visited[u] = true;
+                    stack.push(node(u, d + 1)); 
+                }
+            }
+                
+        } 
+        cout << "\n";
+    }
 
 Example:
 
 .. code-block:: cpp
 
-    V = 4;
+    V = 5;
     adj = new list<int>[V];
-    addEdge(0, 1); 
+    addEdge(1, 0); 
     addEdge(0, 2); 
-    addEdge(1, 2); 
-    addEdge(2, 0); 
-    addEdge(2, 3); 
-    addEdge(3, 3); 
+    addEdge(2, 1); 
+    addEdge(0, 3); 
+    addEdge(1, 4); 
 
-    bfs(2);
+    cout << "Following is DFS Traversal\n"; 
+    dfs(0); 
+    cout << "Following is BFS Traversal\n"; 
+    bfs(0);
 
 Topological Sorting
 +++++++++++++++++++
