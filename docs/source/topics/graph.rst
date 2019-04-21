@@ -7,45 +7,52 @@ Graph Traversal
 Breadth First Search (BFS)
 ++++++++++++++++++++++++++
 
-https://www.geeksforgeeks.org/breadth-first-search-or-bfs-for-a-graph/
-
 .. code-block:: cpp
 
     int V;
     list<int> *adj;
 
-    void addEdge(int v, int w) 
-    { 
+    struct node {
+        int v;
+        int distance;
+
+        node(int v, int distance) :v(v), distance(distance) {};
+    };
+
+    void addEdge(int v, int w)
+    {
         adj[v].push_back(w);
-    } 
+    }
 
     void bfs(int s) {
 
-        bool *visited = new bool[V]; 
-        for(int i = 0; i < V; i++) 
-            visited[i] = false; 
+        bool visited[V];
+        memset(visited, false, sizeof visited);
 
-        list<int> queue; 
+        list<node> queue;
 
-        visited[s] = true; 
-        queue.push_back(s); 
+        visited[s] = true;
+        queue.push_back(node(s, 0));
 
-        list<int>::iterator i; 
-    
-        while(!queue.empty()) 
+        list<int>::iterator i;
+
+        while(!queue.empty())
         {
-            s = queue.front(); 
-            cout << s << " "; 
-
+            int v = queue.front().v;
+            int d =  queue.front().distance;
             queue.pop_front();
-            for (i = adj[s].begin(); i != adj[s].end(); ++i) 
-            { 
-                if (!visited[*i]) 
-                { 
-                    visited[*i] = true; 
-                    queue.push_back(*i); 
-                } 
-            } 
+
+            cout << v << " ";
+            
+            for (i = adj[v].begin(); i != adj[v].end(); ++i)
+            {
+                int u = *i;
+                if (!visited[u])
+                {
+                    visited[u] = true;
+                    queue.push_back(node(u, d + 1));
+                }
+            }
         }
         cout << "\n";
     }
