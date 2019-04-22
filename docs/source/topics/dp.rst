@@ -31,14 +31,20 @@ Dynamic Programming
 Longest increasing subsequence
 ------------------------------
 
+Example: 1 7 3 7 3 6 5
+LIS = 1 -> 3 -> 3 -> 6, maxLength = 4
+
+Remove repeated item:
+Change b_search if(target >= dp[mid]) to if(target > dp[mid])
+LIS = 1 -> 3 -> 6, maxLength = 3
 
 .. code-block:: cpp
 
     int dp[maxn], a[maxn];
 
-    int b_search(int size, int target)
+    int b_search(int n, int target)
     {
-        int low = 0, high = size;
+        int low = 0, high = n - 1;
         while(low <= high)
         {
             int mid = (low + high)/2;
@@ -52,17 +58,13 @@ Longest increasing subsequence
     
     int solve(int *a, int n)
     {
-        int i, j, ans = 1;
+        int len = 1;
         dp[0] = a[0];
-        for(i = 1; i < n; i++)
+        for (int i = 1; i < n; ++i)
         {
-            if(a[i] < dp[0])
-                j = 0;
-            else if(a[i] >= dp[ans])
-                j = ++ans;
-            else
-                j = b_search(ans, a[i]);
-            dp[j] = a[i];
+            int pos = b_search(len, a[i]);
+            dp[pos] = a[i];
+            len = max(len, pos + 1);
         }
-        return ans;
+        return len;
     }
