@@ -27,3 +27,42 @@ Dynamic Programming
                 dp[i][j] = dp[i - 1][j];
         }
     }
+
+Longest increasing subsequence
+------------------------------
+
+
+.. code-block:: cpp
+
+    int dp[maxn], a[maxn];
+
+    int b_search(int size, int target)
+    {
+        int low = 0, high = size;
+        while(low <= high)
+        {
+            int mid = (low + high)/2;
+            if(target >= dp[mid])
+                low = mid + 1;
+            else
+                high = mid - 1;
+        }
+        return low;
+    }
+    
+    int solve(int *a, int n)
+    {
+        int i, j, ans = 1;
+        dp[0] = a[0];
+        for(i = 1; i < n; i++)
+        {
+            if(a[i] < dp[0])
+                j = 0;
+            else if(a[i] >= dp[ans])
+                j = ++ans;
+            else
+                j = b_search(ans, a[i]);
+            dp[j] = a[i];
+        }
+        return ans;
+    }
