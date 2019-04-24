@@ -31,14 +31,16 @@ Dynamic Programming
 Longest increasing subsequence
 ------------------------------
 
-Example: 1 7 3 7 3 6 5
-LIS = 1 -> 3 -> 3 -> 6, maxLength = 4
+| Example: 1 7 3 7 3 6 5
+| LIS = 1 -> 3 -> 3 -> 6, maxLength = 4
 
-Remove repeated item:
-Change b_search if(target >= dp[mid]) to if(target > dp[mid])
-LIS = 1 -> 3 -> 6, maxLength = 3
+| Remove repeated items:
+| Change b_search function **if(target >= dp[mid])** *to* **if(target > dp[mid])**
+
+| LIS = 1 -> 3 -> 6, maxLength = 3
 
 .. code-block:: cpp
+    :emphasize-lines: 9
 
     int dp[maxn], a[maxn];
 
