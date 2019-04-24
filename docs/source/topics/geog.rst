@@ -18,7 +18,6 @@ Basic
         point_t operator/(double r) const { return point_t(x / r, y / r); }
         point_t rot90() const { return point_t(-y, x); }
         double l() const { return sqrt(x * x + y * y); }
-        void read() { scanf("%lf%lf", &x, &y); }
     };
 
     double dot(point_t p1, point_t p2) {
@@ -26,7 +25,7 @@ Basic
     }
 
     int dblcmp(double x) {
-    return (x < -eps ? -1 : x > eps);
+        return (x < -eps ? -1 : x > eps);
     }
 
     double cross(point_t p1, point_t p2) {
