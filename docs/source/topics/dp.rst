@@ -70,3 +70,25 @@ Longest increasing subsequence
         }
         return len;
     }
+
+Number of ways to form a number
+-------------------------------
+
+| dp[i]: i is the number of ways to form a[j]
+| a[j]: a[j] defines the items that allowed to form i
+
+| Example:
+| You have 5 coins a[5] = {1, 2, 5, 10, 20}
+| You need to find the number of ways to form $231 from the above conis
+| dp[231] give you the answer
+
+.. code-block:: cpp
+
+    memset(dp, 0, sizeof dp);
+    dp[0] = 1;
+    for (int i = 0; i < cnt; ++i)
+    {
+        for (int j = a[i]; j <= n; ++j) {
+            dp[j] += dp[j - a[i]];
+        }
+    }
