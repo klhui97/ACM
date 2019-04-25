@@ -1,0 +1,43 @@
+name: docs
+channels:
+  - defaults
+dependencies:
+  - certifi=2019.3.9=py27_0
+  - libcxx=4.0.1=hcfea43d_1
+  - libcxxabi=4.0.1=hcfea43d_1
+  - libedit=3.1.20181209=hb402a30_0
+  - libffi=3.2.1=h475c297_4
+  - ncurses=6.1=h0a44026_1
+  - pip=19.0.3=py27_0
+  - python=2.7.16=h97142e2_0
+  - readline=7.0=h1de35cc_5
+  - setuptools=41.0.0=py27_0
+  - sqlite=3.28.0=ha441bb4_0
+  - tk=8.6.8=ha441bb4_0
+  - wheel=0.33.1=py27_0
+  - zlib=1.2.11=h1de35cc_3
+  - pip:
+    - alabaster==0.7.12
+    - babel==2.6.0
+    - chardet==3.0.4
+    - docutils==0.14
+    - idna==2.8
+    - imagesize==1.1.0
+    - jinja2==2.10.1
+    - markupsafe==1.1.1
+    - packaging==19.0
+    - pdfrw==0.4
+    - pillow==6.0.0
+    - pygments==2.3.1
+    - pyparsing==2.4.0
+    - pytz==2019.1
+    - reportlab==3.4.0
+    - requests==2.21.0
+    - rst2pdf==0.93.dev0
+    - six==1.12.0
+    - smartypants==2.0.1
+    - snowballstemmer==1.2.1
+    - sphinx==1.8.5
+    - sphinxcontrib-websupport==1.1.0
+    - typing==3.6.6
+    - urllib3==1.24.2
