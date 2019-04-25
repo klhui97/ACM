@@ -482,71 +482,84 @@ Code:
 .. code-block:: cpp
 
     int V;
+    int src;
 
-    int minKey(int key[], bool mstSet[])  {
-        int min = INT_MAX, min_index; 
-        
-        for (int v = 0; v < V; v++) 
-            if (mstSet[v] == false && key[v] < min) 
-                min = key[v], min_index = v; 
-        
-        return min_index; 
+    typedef pair<int, int> iPair; 
+    list< pair<int, int> > *adj; 
+
+    void addEdge(int u, int v, int w) { 
+        adj[u].push_back(make_pair(v, w)); 
+        adj[v].push_back(make_pair(u, w)); 
     }
 
-    int primMST(int graph[maxn][maxn])  {
-        int parent[V];
-        int key[V];
-        bool mstSet[V];
-
-        for (int i = 0; i < V; i++) 
-            key[i] = INT_MAX, mstSet[i] = false; 
-
-        key[0] = 0;      
-        parent[0] = -1;
-
-        for (int count = 0; count < V-1; count++) 
+    int primMST()  {
+        priority_queue< iPair, vector <iPair> , greater<iPair> > pq; 
+        vector<int> dist(V, INF);
+        vector<int> parent(V, -1);
+        vector<bool> inMST(V, false);
+        pq.push(make_pair(0, src)); 
+        dist[src] = 0; 
+    
+        while (!pq.empty()) 
         {
-            int u = minKey(key, mstSet);
-            mstSet[u] = true; 
-            for (int v = 0; v < V; v++)  
-                if (graph[u][v] && mstSet[v] == false && graph[u][v] < key[v]) 
-                parent[v] = u, key[v] = graph[u][v]; 
-        }
+            int u = pq.top().second; 
+            pq.pop(); 
+    
+            inMST[u] = true;
+            list< pair<int, int> >::iterator i; 
+            for (i = adj[u].begin(); i != adj[u].end(); ++i) 
+            {
+                int v = (*i).first; 
+                int weight = (*i).second; 
 
-        int w = 0;
-        printf("Edge \tWeight\n"); 
-        for (int i = 1; i < V; i++) {
-            if (graph[i][parent[i]] == INT_MAX)
-                return -1; // not a mst
-            w += graph[i][parent[i]];
-            printf("%d - %d \t%d \n", parent[i], i, graph[i][parent[i]]);
+                if (inMST[v] == false && dist[v] > weight) 
+                {
+                    dist[v] = weight; 
+                    pq.push(make_pair(dist[v], v)); 
+                    parent[v] = u; 
+                } 
+            } 
         }
-        return w;
+        
+        int sum = 0;
+        for (int i = 0; i < V; ++i) {
+            if (i != src) {
+                if (dist[i] == INF) {
+                    sum = dist[i];
+                    break;
+                }
+                printf("%d - %d    %d\n", parent[i], i, dist[i]);
+                sum += dist[i];
+            }
+        }
+            
+        return sum;
     }
 
-Example:
+| Example:
+| src: starting vertex
+| V: vertexs are indexed as 0...V-1
 
 .. code-block:: cpp
 
-    int cost[maxn][maxn] = { 
-        { INT_MAX, 2, INT_MAX, 6, INT_MAX }, 
-        { 2, INT_MAX, 3, 8, 5 }, 
-        { INT_MAX, INT_MAX, INT_MAX, INT_MAX, INT_MAX }, 
-        { 6, 8, INT_MAX, INT_MAX, 9 }, 
-        { INT_MAX, 5, 7, 9, INT_MAX }, 
-    }; 
-
-    cout << primMST(cost) << "\n"; // -1 is returned (undefine case)
-
-    int cost2[maxn][maxn] = { 
-        { INT_MAX, 2, INT_MAX, 6, INT_MAX }, 
-        { 2, INT_MAX, 3, 8, 5 }, 
-        { INT_MAX, 3, INT_MAX, INT_MAX, 7 }, 
-        { 6, 8, INT_MAX, INT_MAX, 9 }, 
-        { INT_MAX, 5, 7, 9, INT_MAX }, 
-    }; 
-
-    cout << primMST(cost2) << "\n"; // 16 is returned
+    src = 3;
+    V = 9;
+    adj = new list<iPair> [V];
+    addEdge(0, 1, 4);
+    addEdge(0, 7, 8);
+    addEdge(1, 2, 8);
+    addEdge(1, 7, 11);
+    addEdge(2, 3, 7);
+    addEdge(2, 8, 2);
+    addEdge(2, 5, 4);
+    addEdge(3, 4, 9);
+    addEdge(3, 5, 14);
+    addEdge(4, 5, 10);
+    addEdge(5, 6, 2);
+    addEdge(6, 7, 1);
+    addEdge(6, 8, 6);
+    addEdge(7, 8, 7);
+    cout << primMST() << "\n";
 
 Maxflow
 -------
