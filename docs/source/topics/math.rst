@@ -19,6 +19,32 @@ Math Library
     double pow(double x, double y); // compute x^y
 
 
+Modulation
+----------
+
+| xy mod n = (x mod n)(y mod n) mod n
+| x^y mod n = (x mod n) ^ y mod n
+
+.. code-block:: cpp
+
+    // return a^b mod c
+    unsigned ModExp(unsigned a, unsigned b, unsigned c) {
+        unsigned tmp;
+
+        if(a==0) return 0;
+        a%=c;
+
+        if(b==1) return a;
+        if(b==0) return (1);
+        
+        tmp = ModExp(a, b>>1, c);
+        tmp = (tmp*tmp)%c;
+
+        if (b&1) tmp = (tmp*a)%c;
+
+        return tmp;
+    }
+
 Extended Euclidean algorithms(to find gcd)
 ------------------------------------------
 
