@@ -261,8 +261,8 @@ Example:
 Prime
 -----
 
-Prime - One time
-++++++++++++++++
+Prime - Check if a number is prime
+++++++++++++++++++++++++++++++++++
 
 .. code-block:: cpp
 
@@ -283,9 +283,8 @@ Prime - One time
 Prime - Bitwise Sieve
 +++++++++++++++++++++
 
-print all primes less than or equal to maxn
-
-Code:
+| Use less based to store if a number is primes
+| print all primes less than or equal to maxn
 
 .. code-block:: cpp
 
@@ -308,19 +307,18 @@ Code:
             if (isPrime(i))
                 cout << i << " ";
         }
-        cout << endl;
+        cout << "\n";
     }
 
 
 Prime - Sieve Of Eratosthenes
 +++++++++++++++++++++++++++++
 
-print all primes less than or equal to N
-
-Code:
-
 .. code-block:: cpp
 
+    /* 
+    * print all primes less than or equal to N
+    */
     void SieveOfEratosthenes(int n)
     {
         bool isprime[n+1];
@@ -335,15 +333,39 @@ Code:
             }
         }
 
-        // Print all isprime numbers
         for (int p=2; p<=n; p++)
             if (isprime[p])
                 cout << p << " ";
-        cout << endl;
+        cout << "\n";
     }
 
-Example:
+Rotate 2D array
+---------------
 
 .. code-block:: cpp
 
-    SieveOfEratosthenes(100);
+    /* 
+    * rotate the values of 2D array by 90 degree
+    */
+    void rotateMatrix(int mat[][N], bool clockwise) 
+    {
+        for (int x = 0; x < N / 2; x++) 
+        {
+            for (int y = x; y < N-x-1; y++) 
+            {
+                int temp = mat[x][y];
+
+                if (clockwise) {
+                    mat[x][y] = mat[y][N-1-x]; 
+                    mat[y][N-1-x] = mat[N-1-x][N-1-y]; 
+                    mat[N-1-x][N-1-y] = mat[N-1-y][x];
+                    mat[N-1-y][x] = temp; 
+                }else {
+                    mat[x][y] = mat[N-1-y][x];
+                    mat[N-1-y][x] = mat[N-1-x][N-1-y];
+                    mat[N-1-x][N-1-y] = mat[y][N-1-x];
+                    mat[y][N-1-x] = temp;
+                }
+            } 
+        } 
+    }
