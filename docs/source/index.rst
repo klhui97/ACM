@@ -18,6 +18,7 @@ ACM tips / cheatsheet
     topics/math.rst
     topics/geog.rst
     topics/utils.rst
+    topics/prime.rst
 
 .. footer::
    ###Page###
@@ -33,3 +34,4 @@ ACM tips / cheatsheet
 .. include:: topics/math.rst
 .. include:: topics/geog.rst
 .. include:: topics/utils.rst
+.. include:: topics/prime.rst
