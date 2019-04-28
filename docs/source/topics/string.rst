@@ -123,6 +123,53 @@ LCS for input Sequences “AGGTAB” and “GXTXAYB” is “GTAB” of length 4
 Suffix Array
 ------------
 
+Quick Suffix Array
+++++++++++++++++++
+
+.. code-block:: cpp
+
+    int wa[maxn], wb[maxn], wv[maxn], Ws[maxn];
+    int sa[maxn], Rank[maxn], height[maxn];
+    char str[maxn];
+
+    int cmp(int *r, int a, int b, int l) {
+        return r[a] == r[b] && r[a + l] == r[b + l];
+    }
+
+    bool contain(string S, int *sa, string T) {
+        int a = 0, b = S.length();
+        while (b - a > 1)
+        {
+                int c = (a + b) / 2;
+                if (S.compare(sa[c], T.length(), T) < 0)    a = c;
+                else b = c;
+        }
+        return S.compare(sa[b], T.length(), T) == 0;
+    }
+
+    void get_SA(const string r, int sa[], int n, int m) {
+        int i, j, p, *x = wa, *y = wb, *t;
+        for (i = 0; i < m; i++) Ws[i] = 0;
+        for (i = 0; i < n; i++) Ws[x[i] = r[i]]++;
+        for (i = 1; i < m; i++) Ws[i] += Ws[i - 1];
+        for (i = n - 1; i >= 0; i--) sa[--Ws[x[i]]] = i;
+        //   cout<<"SA"<<endl;;
+        //   for(int i=0;i<n+1;i++)cout<<sa[i]<<' ';
+        for (j = 1, p = 1; p < n; j *= 2, m = p)
+        {
+                for (p = 0, i = n - j; i < n; i++) y[p++] = i;
+                for (i = 0; i < n; i++) if (sa[i] >= j) y[p++] = sa[i] - j;
+                for (i = 0; i < n; i++) wv[i] = x[y[i]];
+                for (i = 0; i < m; i++) Ws[i] = 0;
+                for (i = 0; i < n; i++) Ws[wv[i]]++;
+                for (i = 1; i < m; i++) Ws[i] += Ws[i - 1];
+                for (i = n - 1; i >= 0; i--) sa[--Ws[wv[i]]] = y[i];
+                for (t = x, x = y, y = t, p = 1, x[sa[0]] = 0, i = 1; i < n; i++)
+                    x[sa[i]] = cmp(y, sa[i - 1], sa[i], j) ? p - 1 : p++;
+        }
+        return;
+    }
+
 kasai’s Algorithm
 +++++++++++++++++
 
