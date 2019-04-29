@@ -485,7 +485,7 @@ Code:
     int src;
 
     typedef pair<int, int> iPair; 
-    list< pair<int, int> > *adj; 
+    list<iPair> *adj; 
 
     void addEdge(int u, int v, int w) { 
         adj[u].push_back(make_pair(v, w)); 
@@ -493,7 +493,7 @@ Code:
     }
 
     int primMST()  {
-        priority_queue< iPair, vector <iPair> , greater<iPair> > pq; 
+        priority_queue<iPair, vector<iPair>, greater<iPair> > pq; 
         vector<int> dist(V, INF);
         vector<int> parent(V, -1);
         vector<bool> inMST(V, false);
@@ -506,7 +506,7 @@ Code:
             pq.pop(); 
     
             inMST[u] = true;
-            list< pair<int, int> >::iterator i; 
+            list<iPair>::iterator i; 
             for (i = adj[u].begin(); i != adj[u].end(); ++i) 
             {
                 int v = (*i).first; 
