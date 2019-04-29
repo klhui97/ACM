@@ -2,7 +2,7 @@ Prime
 =====
 
 Prime - Check if a number is prime
-++++++++++++++++++++++++++++++++++
+----------------------------------
 
 .. code-block:: cpp
 
@@ -21,7 +21,7 @@ Prime - Check if a number is prime
     }
 
 Prime - Bitwise Sieve
-+++++++++++++++++++++
+---------------------
 
 | Use less based to store if a number is primes
 | print all primes less than or equal to maxn
@@ -52,7 +52,7 @@ Prime - Bitwise Sieve
 
 
 Prime - Sieve Of Eratosthenes
-+++++++++++++++++++++++++++++
+-----------------------------
 
 .. code-block:: cpp
 
@@ -80,7 +80,7 @@ Prime - Sieve Of Eratosthenes
     }
 
 Prime factors of a number
-+++++++++++++++++++++++++
+-------------------------
 
 .. code-block:: cpp
 
@@ -113,7 +113,7 @@ Prime factors of a number
     } 
 
 Prime factors of a big number
-+++++++++++++++++++++++++++++
+-----------------------------
 
 .. code-block:: cpp
 

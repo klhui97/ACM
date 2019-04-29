@@ -734,6 +734,23 @@ Code:
         return ans;
     }
 
+    // analysis vertex
+    void searchFlow(int vertex) {
+        for (int e = h[vertex]; e != -1; e = edge[e].nxt) {
+            int v = edge[e].v;
+            int c = edge[e].c;
+
+            if (c == 0) {
+                cout << v << " flowed from " << vertex << " with flowed value = " << f[e] << "\n";
+            }else {
+                cout << vertex << " flowed to " << v << " capacity = " << c << " flowed value = " << f[e] << "\n";
+                if (c - f[e] == 0)
+                    cout << vertex << " completely flowed to " << v << "\n";
+            }
+            
+        }
+    }
+
     // dfs, find vertexs that haven't flowout
     int cnt;
     int visited[maxn];
