@@ -20,6 +20,7 @@ ACM tips / cheatsheet
     topics/utils.rst
     topics/prime.rst
     topics/data_structure.rst
+    topics/example.rst
 
 .. footer::
    ###Page###
@@ -37,3 +38,4 @@ ACM tips / cheatsheet
 .. include:: topics/utils.rst
 .. include:: topics/prime.rst
 .. include:: topics/data_structure.rst
+.. include:: topics/example.rst
