@@ -19,6 +19,7 @@ ACM tips / cheatsheet
     topics/geog.rst
     topics/utils.rst
     topics/prime.rst
+    topics/data_structure.rst
 
 .. footer::
    ###Page###
@@ -35,3 +36,4 @@ ACM tips / cheatsheet
 .. include:: topics/geog.rst
 .. include:: topics/utils.rst
 .. include:: topics/prime.rst
+.. include:: topics/data_structure.rst
