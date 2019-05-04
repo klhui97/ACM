@@ -48,6 +48,8 @@ Modulation
 Extended Euclidean algorithms(to find gcd)
 ------------------------------------------
 
+| a * x + b * y = gcd(a, b);
+
 .. code-block:: cpp
 
     int gcdExtended(int a, int b, int *x, int *y) 
