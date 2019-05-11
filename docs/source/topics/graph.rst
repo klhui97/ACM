@@ -9,15 +9,15 @@ DFS & BFS
 
 .. code-block:: cpp
 
-    int V;
-    list<int> *adj;
-
     struct node {
         int v;
         int distance;
 
         node(int v, int distance) :v(v), distance(distance) {};
     };
+
+    int V;
+    list<int> *adj;
 
     void addEdge(int v, int w)
     {
@@ -206,6 +206,19 @@ Floyd- Warshall algorithm
                     if(graph[i][k] && graph[k][j])
                         graph[i][j] = graph[i][k] + graph[k][j];
                 }
+            }
+        }
+    }
+
+| 找出一条路径的最小值是所有路径最小值当中最大的。 
+| graph[i][j] = minimum edge from i to j
+
+.. code-block:: cpp
+
+    for(k = 1; k < N; k++) {
+        for(i = 1; i < N; i++) {
+            for(j = 1; j < N; j++) {
+                graph[i][j] = max(graph[i][j], min(graph[i][k], graph[k][j]));
             }
         }
     }
